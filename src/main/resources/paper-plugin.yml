@@ -1,0 +1,14 @@
+name: Staff
+version: '${project.version}'
+main: com.reflexian.staff.Staff
+api-version: 1.19
+dependencies:
+  - name: PlaceholderAPI
+    required: true
+    bootstrap: false
+  - name: ItemsAdder
+    required: false
+    bootstrap: false
+authors: [Raymond]
+website: reflexian.com
+loader: com.reflexian.staff.StaffPluginLoader
