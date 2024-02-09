@@ -20,7 +20,9 @@ public class JoinListener implements Listener {
             if (data.isPresent()) {
                 staff.getOnlinePlayers().put(event.getUniqueId(), data.get());
             }else {
-                throw new RuntimeException("Failed to load player data for " + event.getUniqueId());
+                PlayerData playerData = staff.getOnlineOrDefault(event.getUniqueId());
+                staff.save(playerData);
+//                throw new RuntimeException("Failed to load player data for " + event.getUniqueId());
             }
         });
 

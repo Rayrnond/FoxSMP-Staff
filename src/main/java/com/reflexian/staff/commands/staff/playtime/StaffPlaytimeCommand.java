@@ -5,6 +5,7 @@ import com.reflexian.staff.utilities.data.player.PlayerData;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.OfflinePlayerArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -34,9 +35,8 @@ public class StaffPlaytimeCommand extends CommandAPICommand {
                 } else {
                     PlayerData playerData = queue.get();
 
-                    //todo custom
-                    sender.sendMessage("§7" + target.getName() + "'s §eplaytime§7: §a" + formatMs(playerData.getMsPlayed()));
-                    sender.sendMessage("§7" + target.getName() + "'s §cafk time§7: §a" + formatMs(playerData.getMsAFK()));
+
+                    sender.sendMessage(PlaceholderAPI.setPlaceholders(target, Staff.getMessagesConfig().getPlaytimeMessage().replace("%player%", target.getName()).replace("%playtime%", formatMs(playerData.getMsPlayed())).replace("%afktime%", formatMs(playerData.getMsAFK()))));
 
                 }
 

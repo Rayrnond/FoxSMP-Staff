@@ -3,6 +3,9 @@ package com.reflexian.staff.commands.staff;
 import com.reflexian.staff.commands.staff.chat.StaffClearChatCommand;
 import com.reflexian.staff.commands.staff.chat.StaffFilterCommand;
 import com.reflexian.staff.commands.staff.chat.StaffSlowmodeCommand;
+import com.reflexian.staff.commands.staff.infractions.StaffInfractionsCommand;
+import com.reflexian.staff.commands.staff.infractions.StaffPunishCommand;
+import com.reflexian.staff.commands.staff.infractions.StaffResetCommand;
 import com.reflexian.staff.commands.staff.playtime.StaffPlaytimeCommand;
 import dev.jorel.commandapi.CommandAPICommand;
 
@@ -20,6 +23,9 @@ public class StaffParentCommand extends CommandAPICommand {
         withSubcommands(new StaffClearChatCommand());
         withSubcommands(new StaffSlowmodeCommand());
         withSubcommands(new StaffFilterCommand());
+        withSubcommands(new StaffInfractionsCommand());
+        withSubcommands(new StaffPunishCommand());
+        withSubcommands(new StaffResetCommand());
     }
 
 }

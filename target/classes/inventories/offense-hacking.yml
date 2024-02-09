@@ -1,0 +1,63 @@
+title: "&cSpamming"
+size: 45
+items:
+  blank:
+    itemsadderID: ''
+    material: GRAY_STAINED_GLASS_PANE
+    amount: 1
+    data: 0
+    displayname: ' '
+    slots: -1
+    lore:
+      - ''
+  blank2:
+    itemsadderID: ''
+    material: WHITE_STAINED_GLASS_PANE
+    amount: 1
+    data: 0
+    displayname: ' '
+    slots: 10,11,12,13,14,15,16,19,20,21,22,23,24,25,28,29,30,31,32,33,34
+    lore:
+      - ''
+
+  northernnomad:
+    itemsadderID: ''
+    material: SUNFLOWER
+    amount: 1
+    data: 0
+    displayname: '&fNorthern Nomad'
+    slots: 13
+    lore:
+      - '&7Click to set this as your pet.'
+
+  avalancheartisan:
+    itemsadderID: ''
+    material: SNOWBALL
+    amount: 1
+    data: 0
+    displayname: '&eAvalanche Artisan'
+    slots: 20
+    lore:
+      - '&7Click to set this as your pet.'
+
+
+  polarexplorer:
+    itemsadderID: ''
+    material: BEACON
+    amount: 1
+    data: 0
+    displayname: '&cPolar Explorer'
+    slots: 24
+    lore:
+      - '&7Click to set this as your pet.'
+
+  glacialguardian:
+    itemsadderID: ''
+    material: CHARCOAL
+    amount: 1
+    data: 0
+    displayname: '&bGlacial Guardian'
+    slots: 31
+    lore:
+      - '&7Click to set this as your pet.'
+

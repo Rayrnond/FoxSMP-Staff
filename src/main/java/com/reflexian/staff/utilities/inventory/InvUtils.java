@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.HashMap;
@@ -43,10 +44,10 @@ public class InvUtils {
     }
 
     public static void showInventory(Player player, String fileName, ClickAction... clickActions) {
-        showInventory(player,fileName,false,clickActions);
+        showInventory(player,fileName,null,clickActions);
     }
 
-    public static SmartInventory showInventory(Player player, String fileName, boolean updateSec, ClickAction... clickActions) {
+    public static SmartInventory showInventory(Player player, String fileName, Map<String, @Nullable BundledPlayerPunishment> bundledPlayerPunishmentMap, ClickAction... clickActions) {
         final Staff instance = Staff.getInstance();
         YamlConfiguration c = inventories.getOrDefault(fileName,null);
         if (c==null) {
@@ -85,7 +86,16 @@ public class InvUtils {
                             for (ClickAction clickAction : clickActions) {
                                 if (clickAction.isDisabled()&&clickAction.getId().equals(key)) continue numberloop;
                             }
-                            contents.set(row,col,ClickableItem.of(InvLang.itemStackInvs(c,"items."+key, player), event ->{
+
+                            BundledPlayerPunishment cos;
+                            if (key.startsWith("punishment") && !bundledPlayerPunishmentMap.isEmpty()) {
+                                cos = bundledPlayerPunishmentMap.get(key.replace("punishment-",""));
+                                cos.setName(key.replace("punishment-",""));
+                            } else {
+                                cos = null;
+                            }
+
+                            contents.set(row,col,ClickableItem.of(InvLang.itemStackInvs(c,"items."+key, cos, player), event ->{
                                 for (ClickAction clickAction : clickActions) {
                                     if (clickAction.isDisabled()) continue;
                                     if (clickAction.getId().equals(key)) {
@@ -105,7 +115,7 @@ public class InvUtils {
 
                             }));
                         } else {
-                            contents.set(row,col,ClickableItem.empty(InvLang.itemStackInvs(c,"items."+key,player)));
+                            contents.set(row,col,ClickableItem.empty(InvLang.itemStackInvs(c,"items."+key,null,player)));
                         }
                     }
                 }
@@ -113,17 +123,10 @@ public class InvUtils {
 
             @Override
             public void update(Player player, InventoryContents contents) {
-                if (updateSec) {
-                    int state = contents.property("state", 0);
-                    contents.setProperty("state", state + 1);
-                    if(state % 20 != 0) {
-                        return;
-                    }
-                    init(player,contents);
-                }
+
             }
         };
-        SmartInventory inv = SmartInventory.builder().closeable(false).id(c.getString("title")).provider(inventoryProvider).size((size/9), 9).title(InvLang.format(c.getString("title"))).manager(instance.getInventoryManager()).build();
+        SmartInventory inv = SmartInventory.builder().closeable(true).id(c.getString("title")).provider(inventoryProvider).size((size/9), 9).title(InvLang.format(c.getString("title"),player)).manager(instance.getInventoryManager()).build();
         inv.open(player);
         return inv;
     }

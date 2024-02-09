@@ -17,7 +17,7 @@ public class StaffSlowmodeCommand extends CommandAPICommand {
                 sender.sendMessage("§cUsage: §7/staff slowmode <amountInSeconds>");
                 return;
             }
-            Staff.getInstance().setSlowmode((Integer) arguments.get("amount"));
+            Staff.getInstance().setSlowmode(((Integer) arguments.get("amount")) * 1000);
             Bukkit.broadcastMessage(Staff.getMessagesConfig().getSlowmodeMessage().replace("%player%", sender.getName()).replace("%amount%", String.valueOf(arguments.get("amount"))));
         });
 

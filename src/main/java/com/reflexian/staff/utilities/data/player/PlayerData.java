@@ -18,8 +18,11 @@ public class PlayerData {
 
     private long lastMove=0;
 
+    private PunishmentHistory punishmentHistory;
+
     public PlayerData(UUID uuid) {
         this.uuid = uuid;
+        this.punishmentHistory = new PunishmentHistory(uuid);
     }
 
 
@@ -31,6 +34,15 @@ public class PlayerData {
             playerData.setMsAFK(resultSet.getLong("ms_afk"));
             playerData.setFirstSeen(resultSet.getLong("first_seen"));
             playerData.setLastSeen(resultSet.getLong("last_seen"));
+
+            playerData.setPunishmentHistory(new PunishmentHistory(playerData.getUuid()));
+
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                String columnName = resultSet.getMetaData().getColumnName(i);
+                if (columnName.startsWith("offense-")) {
+                    playerData.getPunishmentHistory().getPunishments().put(columnName.replace("offense-",""),resultSet.getInt(columnName));
+                }
+            }
             return playerData;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -38,7 +50,23 @@ public class PlayerData {
     }
 
     public static String toSQL(PlayerData playerData) {
-        return "INSERT INTO `player_data` (`uuid`, `username`, `ms_played`, `ms_afk`, `first_seen`, `last_seen`) VALUES ('"+playerData.uuid.toString()+"', '"+playerData.username+"', '"+playerData.msPlayed+"', '"+playerData.msAFK+"', '"+playerData.firstSeen+"', '"+playerData.lastSeen+"') ON DUPLICATE KEY UPDATE `username`='"+playerData.username+"', `ms_played`='"+playerData.msPlayed+"', `ms_afk`='"+playerData.msAFK+"', `last_seen`='"+playerData.lastSeen+"';";
+        StringBuilder builder = new StringBuilder("INSERT INTO `player_data` (`uuid`,`username`,`ms_played`,`ms_afk`,`first_seen`,`last_seen`");
+        playerData.getPunishmentHistory().getPunishments().forEach((p1,p2) -> {
+            builder.append(",`offense-").append(p1).append("`");
+        });
+        builder.append(") VALUES ('").append(playerData.getUuid().toString()).append("','").append(playerData.getUsername()).append("',").append(playerData.getMsPlayed()).append(",").append(playerData.getMsAFK()).append(",").append(playerData.getFirstSeen()).append(",").append(playerData.getLastSeen());
+        playerData.getPunishmentHistory().getPunishments().forEach((p1,p2) -> {
+            builder.append(",").append(p2);
+        });
+        builder.append(") ON DUPLICATE KEY UPDATE `username` = '").append(playerData.getUsername()).append("', `ms_played` = ").append(playerData.getMsPlayed()).append(", `ms_afk` = ").append(playerData.getMsAFK()).append(", `last_seen` = ").append(playerData.getLastSeen());
+        playerData.getPunishmentHistory().getPunishments().forEach((p1,p2) -> {
+            builder.append(",`offense-").append(p1).append("` = ").append(p2);
+        });
+        builder.append(";");
+        return builder.toString();
+    }
+    public static String toQuery(String username) {
+        return "SELECT * FROM `player_data` WHERE `username` = '"+username.toString().toLowerCase()+"';";
     }
 
     public static String toQuery(UUID uuid) {

@@ -9,6 +9,9 @@ dependencies:
   - name: ItemsAdder
     required: false
     bootstrap: false
+  - name: LiteBans
+    required: true
+    bootstrap: false
 authors: [Raymond]
 website: reflexian.com
 loader: com.reflexian.staff.StaffPluginLoader

@@ -1,0 +1,50 @@
+#
+# Plugin UUID: 5742bf6a-950c-11ee-b9d1-0242ac120002
+#
+#
+
+# Format:
+#   ladder:
+#     <ladder name>:
+#       - '<punishment type> <duration>:<reason>'
+#
+# (<reason> may not contain ':' or '\n')
+#
+# Punishment types:
+#  - warn
+#  - mute
+#  - ban
+#  - ipban
+#
+# Duration format:
+#  - <number><unit>
+#
+# (e.g. 1s, 1m, 1h, 1d, 1w, 1m, 1y) values must be supported by litebans
+# use 'perm' for permanent punishments, and '0' to unpunish
+#
+# Use category for inventory gui
+
+
+#make your own, must have the value in the gui
+ladder:
+  spamming:
+    category: 'chat'
+    1: 'mute 1h:Spamming'
+    2: 'mute 1d:Spamming'
+    3: 'mute 7d:Spamming'
+    4: 'ban 1d:Spamming'
+    5: 'ban 3d:Spamming'
+  advertising:
+    category: 'chat'
+    1: 'mute 1d:Advertising'
+    2: 'mute 3d:Advertising'
+    3: 'mute 7d:Advertising'
+    4: 'ban 1d:Advertising'
+    5: 'ban 3d:Advertising'
+  hacking:
+    category: 'gameplay'
+    1: 'ban 1d:Hacking'
+    2: 'ban 3d:Hacking'
+    3: 'ban 7d:Hacking'
+    4: 'ban 30d:Hacking'
+    5: 'ban permanent:Hacking'

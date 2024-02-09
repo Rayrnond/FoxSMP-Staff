@@ -1,0 +1,51 @@
+title: "&cPunish"
+size: 45
+items:
+  blank:
+    itemsadderID: ''
+    material: GRAY_STAINED_GLASS_PANE
+    amount: 1
+    data: 0
+    displayname: ' '
+    slots: -1
+    lore:
+      - ''
+  blank2:
+    itemsadderID: ''
+    material: WHITE_STAINED_GLASS_PANE
+    amount: 1
+    data: 0
+    displayname: ' '
+    slots: 10,11,12,13,14,15,16,19,20,21,22,23,24,25,28,29,30,31,32,33,34
+    lore:
+      - ''
+
+  page-chat:
+    itemsadderID: ''
+    material: SUNFLOWER
+    amount: 1
+    data: 0
+    displayname: '&eChat Punishment'
+    slots: 13
+    lore:
+      - '&7Click to punish for chat.'
+  page-game:
+    itemsadderID: ''
+    material: SUNFLOWER
+    amount: 1
+    data: 0
+    displayname: '&eGame Punishment'
+    slots: 14
+    lore:
+      - '&7Click to punish for game.'
+
+  custom:
+    itemsadderID: ''
+    material: STICK
+    amount: 1
+    data: 0
+    displayname: '&eCustom'
+    slots: 15
+    lore:
+      - '&7Click to punish for anything.'
+
